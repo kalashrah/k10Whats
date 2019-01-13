@@ -1,0 +1,607 @@
+%hook WAMultiSendMediaItemQuality
+// long long _videoMaximumBitrate;
+- (double)_videoMaximumDuration {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+
+%end
+
+
+
+%hook WAVideoTranscoderDescriptor
+- (void)setMaximumFileSize:(unsigned long long)arg1 {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+%orig(900000000);
+} else {
+return %orig;
+}
+}
+
+- (_Bool)_requiresFileSizeReduction {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return FALSE;
+} else {
+return %orig;
+}
+}
+- (unsigned long long)_maximumFileSize {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+%end
+
+
+
+%hook WAAssetCollection
+- (void)storeCountOfVideosInCameraRoll:(long long)arg1 {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+%orig(900000000);
+} else {
+return %orig;
+}
+}
+%end
+
+
+%hook WAVideoPreviewViewController
+- (unsigned long long)videoFileSize {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+
+- (void)setVideoFileSize:(unsigned long long)arg1 {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+%orig(900000000);
+} else {
+return %orig;
+}
+}
+%end
+
+
+%hook WAVideoScrubberThumbnailBar
+- (double)_videoDuration {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+
+return 900000000;
+} else {
+return %orig;
+}
+}
+
+%end
+
+%hook WAVideoScrubberPrecisionRangeSlider
+
+- (double)_videoDurationInSeconds {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+
+- (void)setLowerValue:(float)arg1 upperValue:(float)arg2 {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+%orig(arg1,900000000);
+} else {
+return %orig;
+}
+}
+- (void)setVideoDurationInSeconds:(double)arg1 {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+%orig(900000000);
+} else {
+return %orig;
+}
+}
+%end
+
+
+%hook WAServerProperties
++ (long long)statusVideoMaxDuration {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
++ (long long)videoMaxKiloBitrate {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+%end
+
+%hook WAVideoTranscoder
+- (_Bool)isVideoEligibleForPassThrough {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return TRUE;
+} else {
+return %orig;
+}
+}
+%end
+
+%hook WamEventVideoPlay
+
+- (void)setVideo_Duration:(double)arg1 {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+%orig(900000000);
+} else {
+return %orig;
+}
+}
+
+- (double)video_duration {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+
+%hook WAMultiSendEditableVideo
+- (long long)_videoFileSize {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return 900000000;
+} else {
+return %orig;
+}
+}
+- (_Bool)needsFileSizeReduction {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"unlimitedVideo"]) {
+return FALSE;
+} else {
+return %orig;
+}
+}
+%end
+
+
+
+WAPushController
+
+ _Bool _needsVOIPToken;
+
+
+#import <UIKit/UIKit.h>
+
+@interface TTInterstitialAdViewController : UIViewController
+
+@end
+
+%hook TTInterstitialAdViewController
+
+- (void)viewWillAppear:(_Bool)arg1{
+
+[self didClosePortraitAdView];
+
+}
+-(void)didClosePortraitAdView{
+
+}
+
+%end
+
+%hook YTAppDelegate
+
+%end
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             DARC MOOOD
+
+
+//%hook _UINavigationBarContentView
+//-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults boolForKey:@"Night10"]) {
+//        self.backgroundColor = Nightk10Color;
+//    } else {
+//        return %orig;
+//    }
+//} %end
+%hook _UINavigationBarLargeTitleView
+-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+self.backgroundColor = Nightk10Color;
+} else {
+return %orig;
+}
+} %end
+
+//%hook _UIStatusBarForegroundView
+//-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults boolForKey:@"Night10"]) {
+//        self.backgroundColor = Nightk10Color;
+//    } else {
+//        return %orig;
+//    }
+// } %end
+%hook _WADraggableInputContainerView
+-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+self.backgroundColor = Nightk10Color;
+} else {
+return %orig;
+}
+} %end
+//%hook _WACustomBehaviorsTableView
+//-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults boolForKey:@"Night10"]) {
+//        self.backgroundColor = Nightk10Color;
+//    } else {
+//        return %orig;
+//    }
+// } %end
+%hook _UIBarBackground
+-(void)layoutSubviews {
+%orig;
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+self.backgroundColor = Nightk10Color;
+} else {
+return %orig;
+}
+} %end
+%hook WATabBar
+-(void)layoutSubviews {
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+self.backgroundColor = Nightk10Color;
+} else {
+return %orig;
+}
+} %end
+//%hook UITableViewCell
+//-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults boolForKey:@"Night10"]) {
+//        self.backgroundColor = Nightk10Color;
+//    } else {
+//        return %orig;
+//    }
+// } %end
+//%hook UITableView
+//-(void)layoutSubviews {     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults boolForKey:@"Night10"]) {
+//        self.backgroundColor = Nightk10Color;
+//    } else {
+//        return %orig;
+//    }
+// }
+//%end
+//%hook UISearchBar
+//-(void)layoutSubviews {    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults boolForKey:@"Night10"]) {
+//        self.backgroundColor = Nightk10Color;
+//    } else {
+//        return %orig;
+//    }
+//} %end
+
+%hook UILabel
+
+-(void)layoutSubviews {
+%orig;
+
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+self.textColor = [UIColor whiteColor];
+self.backgroundColor = [UIColor clearColor];
+} else {
+return %orig;
+}
+}
+
+%end
+
+%hook WABadgedLabel
+
+-(void)layoutSubviews {
+%orig;
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+
+self.backgroundColor = [UIColor clearColor];
+} else {
+return %orig;
+}
+}
+%end
+
+%hook UITableViewLabel
+
+-(void)layoutSubviews {
+%orig;
+
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"Night10"]) {
+self.textColor = [UIColor whiteColor];
+} else {
+return %orig;
+}
+}
+
+%end
+
+
+مراسله سريعه
+
+
+@interface _WATableViewCellWithFakeButton : UITableViewCell
+-(id)initWithStyle:(long long)arg1 reuseIdentifier:(id)arg2;
+@end
+
+
+@interface WATableRow : NSObject {
+UITableViewCell *_cell;
+}
+
+@property(readonly, nonatomic) UITableViewCell *cell;
+
+-(id)initWithCell:(UITableViewCell *)arg1;
+@end
+
+
+@interface WATableSection : NSObject
+-(void)insertRow:(WATableRow *)arg1 atIndex:(long long)arg2;
+@end
+
+
+@interface WASinglePersonPicker : UITableViewController {
+WATableSection *_sectionTopActions;
+}
+
+-(void)viewWillAppear:(_Bool)arg1;
+-(void)tableView:(id)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+-(_Bool)tableView:(id)table isActionsSection:(long long)indexPathSection;
+
+// New
+-(void)pr0crustes_askForNumber;
+-(void)pr0crustes_chatWithNumber:(NSString *)number;
+@end
+
+
+
+
+
+%hook WASinglePersonPicker
+
+-(void)viewWillAppear:(_Bool)arg1 {
+%orig;
+
+_WATableViewCellWithFakeButton* cell = [%c(_WATableViewCellWithFakeButton) alloc];
+cell = [cell initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+cell.textLabel.text =  @"مراسلة رقم مباشر";
+cell.textLabel.textColor = [UIColor colorWithRed:0.0 green:0.486 blue:1.0 alpha:1.0];
+
+WATableRow* tableRow = [[%c(WATableRow) alloc] initWithCell:cell];
+
+WATableSection *sectionTop = MSHookIvar<WATableSection *>(self, "_sectionTopActions");
+[sectionTop insertRow:tableRow atIndex:2];
+}
+
+-(void)tableView:(id)arg1 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+if ([self tableView:arg1 isActionsSection:indexPath.section]) {  // Is action
+if (indexPath.row == 2) {  // Is the new button
+return [self pr0crustes_askForNumber];
+}
+}
+return %orig;
+}
+
+%new
+-(void)pr0crustes_askForNumber {
+UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"Whats10" message: @"أدخل رقم الهاتف المستهدف:" preferredStyle:UIAlertControllerStyleAlert];
+
+[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+textField.placeholder = @"+12025550158";
+textField.textColor = [UIColor blueColor];
+textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+textField.borderStyle = UITextBorderStyleRoundedRect;
+}];
+
+UIAlertAction* startAction = [UIAlertAction actionWithTitle:@"مراسلة" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+UITextField* phoneField = alertController.textFields[0];
+NSLog(@"%@", phoneField.text);
+}];
+[alertController addAction:startAction];
+
+UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"إلغاء" style:UIAlertActionStyleDefault handler:nil];
+[alertController addAction:cancelAction];
+
+[self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+
+%end
+
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+if ([defaults boolForKey:@"hiddenvideoCallButton"]) {
+
+} else {
+return %orig;
+}
+
+
+
+
+
+
+
+
+
+
+
+%new
+-(void)setting10{
+FRPViewSection *headerSection = [FRPViewSection sectionWithHeight:70
+initBlock:^(UITableViewCell *cell) {
+/* design your cell as you wish */
+/* block of code executed during cell initialization */
+cell.backgroundColor = [UIColor clearColor];
+
+UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:48];
+[label setText:@"Whats10"];
+[label setTextColor:[UIColor blackColor]];
+// [label setShadowColor:[UIColor colorWithRed:1/255.0f green:152/255.0f blue:117/255.0f alpha:1.0f]];
+[label setShadowOffset:CGSizeMake(1,1)];
+[label setTextAlignment:NSTextAlignmentCenter];
+[label setTag:111];
+
+UILabel *underLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+[underLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+[underLabel setText:@"Thanks for interrupting Wha10"];
+[underLabel setTextColor:[UIColor grayColor]];
+[underLabel setTextAlignment:NSTextAlignmentCenter];
+[underLabel setTag:222];
+
+[cell.contentView addSubview:label];
+[cell.contentView addSubview:underLabel];
+}
+layoutBlock:^(UITableViewCell *cell) {
+/* block of code executed during cell layoutSubviews */
+[[cell.contentView viewWithTag:111] setFrame:CGRectMake(0, -5, cell.frame.size.width, 60)];
+[[cell.contentView viewWithTag:222] setFrame:CGRectMake(0, 30, cell.frame.size.width, 60)];
+}];
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+FRPSection *SectionSetting = [FRPSection sectionWithTitle:@"" footer:@""];
+
+FRPNewLinkCell *LinkSettingPrivacy = [FRPNewLinkCell cellWithTitle:@"اعدادت الخصوصية" image:[UIImage imageNamed:@"/Library/Application Support/Whats10.bundle/scurtimg.png"] selectedBlock:^(id sender) {
+
+FRPSection *SettingPrivacy = [FRPSection sectionWithTitle:@"" footer:@""];
+
+[SettingPrivacy addCell:[FRPSwitchCell cellWithTitle:@" اخفاء الظهور" setting:[FRPSettings settingsWithKey:@"DisableOnline" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+[SettingPrivacy addCell:[FRPSwitchCell cellWithTitle:@" اخفاء جاري الكتابة" setting:[FRPSettings settingsWithKey:@"DisableTyping" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+[SettingPrivacy addCell:[FRPSwitchCell cellWithTitle:@" اخفاء علامات القراءة" setting:[FRPSettings settingsWithKey:@"DisableReadReceipt" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+FRPreferences *SettingPrivacyVC = [FRPreferences tableWithSections:@[SettingPrivacy] title:@"Privacy" tintColor:greenColor];
+[self.navigationController pushViewController:SettingPrivacyVC animated:YES];
+
+}];
+
+
+
+//    ///////////////////////////////
+
+
+FRPNewLinkCell *LinkSettingMedia = [FRPNewLinkCell cellWithTitle:@"إعدادات الوسائط" image:[UIImage imageNamed:@"/Library/Application Support/Whats10.bundle/MediaImg.png"] selectedBlock:^(id sender) {
+
+FRPSection *SettingMedia = [FRPSection sectionWithTitle:@"" footer:@""];
+
+[SettingMedia addCell:[FRPSwitchCell cellWithTitle:@"حجم لامحدود للرفع" setting:[FRPSettings settingsWithKey:@"UnlimitedMedia" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+
+[SettingMedia addCell:[FRPSwitchCell cellWithTitle:@"تفعيل الحفظ من الحالة" setting:[FRPSettings settingsWithKey:@"StatusSaved" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+
+
+FRPreferences *SettingMediaVC = [FRPreferences tableWithSections:@[SettingMedia] title:@"Media" tintColor:greenColor];
+[self.navigationController pushViewController:SettingMediaVC animated:YES];
+
+}];
+
+
+/////////////////////////////////////////
+
+FRPNewLinkCell *LinkSettingChat = [FRPNewLinkCell cellWithTitle:@"إعدادات المحادثات" image:[UIImage imageNamed:@"/Library/Application Support/Whats10.bundle/chatImg.png"] selectedBlock:^(id sender) {
+
+FRPSection *SettingChat = [FRPSection sectionWithTitle:@"" footer:@""];
+
+[SettingChat addCell:[FRPSwitchCell cellWithTitle:@"تأكيد المكالمات" setting:[FRPSettings settingsWithKey:@"alertcallvoice" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+
+[SettingChat addCell:[FRPSwitchCell cellWithTitle:@"اخفاء زر الاتصال والفيديو" setting:[FRPSettings settingsWithKey:@"hiddenvoiceCallButton" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+[SettingChat addCell:[FRPSwitchCell cellWithTitle:@"تفعيل الحذف في اي وقت" setting:[FRPSettings settingsWithKey:@"Disabledeletmessage" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+[SettingChat addCell:[FRPSwitchCell cellWithTitle:@"ابقاء رسائل الطرف الاخر بعد الحذف" setting:[FRPSettings settingsWithKey:@"Disabledeletmessage" defaultValue:@NO] postNotification:nil changeBlock:^(id sender) { }]];
+
+FRPreferences *SettingMediaVC = [FRPreferences tableWithSections:@[SettingChat] title:@"Setting Chat" tintColor:greenColor];
+[self.navigationController pushViewController:SettingMediaVC animated:YES];
+
+}];
+FRPSwitchCell *switchDarkMood = [FRPSwitchCell cellWithTitle:@"Dark Mood"
+setting:[FRPSettings settingsWithKey:@"Night10" defaultValue:@NO]
+postNotification:nil
+changeBlock:^(UISwitch *switchView) {
+// NSLog(@"switch 1 is: %@",[(UISwitch *)switchView isOn]?@"ENABLED":@"DISABLED");
+}];
+[SectionSetting addCell:LinkSettingPrivacy];
+[SectionSetting addCell:LinkSettingChat];
+[SectionSetting addCell:LinkSettingMedia];
+[SectionSetting addCell:switchDarkMood];
+
+
+
+/////////////////////////////////////////
+FRPSection *sectionDeveloper = [FRPSection sectionWithTitle:@"" footer:@""];
+
+[sectionDeveloper addCell:[FRPDeveloperCell cellWithTitle:@"khalid Alashrah" detail:@"@kalashrah" image:[UIImage imageNamed:@"/Library/Application Support/Whats10.bundle/logo.jpg"] url:@"https://twitter.com/kalashrah"]];
+
+
+FRPreferences *table = [FRPreferences tableWithSections:@[headerSection,SectionSetting,sectionDeveloper]
+title:@"Whats10 Settings"
+tintColor:greenColor];
+
+UIBarButtonItem *Apply = [[UIBarButtonItem alloc]initWithTitle:@"Apply" style:UIControlStateNormal target:self action:@selector(exit0)];
+
+
+table.navigationItem.rightBarButtonItem = Apply;
+
+[self.navigationController pushViewController:table animated:YES];
+
+table.navigationController.navigationBar.tintColor = greenColor;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

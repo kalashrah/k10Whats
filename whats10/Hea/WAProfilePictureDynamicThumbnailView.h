@@ -1,0 +1,2 @@
+@interface WAProfilePictureDynamicThumbnailView : UIImageView
+@end
